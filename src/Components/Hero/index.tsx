@@ -16,15 +16,17 @@ const Hero = ({ centerCenter, rightBottom }: HeroProps) => {
       <Content>
         <Row style={{ height: "30vh" }}>
           <Col className="hero-col" span={isMobile ? 24 : 8}></Col>
-          <Col className="hero-col" span={isMobile ? 24 : 8}></Col>
+          <Col className="hero-col" span={24}>
+            {isMobile ? centerCenter : null}
+          </Col>
           <Col className="hero-col" span={isMobile ? 24 : 8}></Col>
         </Row>
         <Row style={{ height: "30vh" }}>
-          <Col className="hero-col" span={isMobile ? 24 : 8}></Col>
-          <Col className="hero-col" span={isMobile ? 24 : 8}>
-            {centerCenter}
+          <Col className="hero-col" span={isMobile ? 24 : 4}></Col>
+          <Col className="hero-col" span={16}>
+            {isMobile ? null : centerCenter}
           </Col>
-          <Col className="hero-col" span={isMobile ? 24 : 8}></Col>
+          <Col className="hero-col" span={isMobile ? 24 : 4}></Col>
         </Row>
         <Row style={{ height: "30vh" }}>
           <Col className="hero-col" span={isMobile ? 24 : 6}></Col>

@@ -8,17 +8,24 @@ import FooterComponent from "./Components/Footer";
 import { ContactsOutlined } from "@ant-design/icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faYoutube } from "@fortawesome/free-brands-svg-icons";
+import {
+  faGithub,
+  faLinkedin,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
 
-import { Layout, Typography } from "antd";
+import { Layout, List, Typography } from "antd";
 import Contact from "./Components/Contact";
 import Reels from "./Components/Reels";
 import Photos from "./Components/Photos";
 
 const { Header, Content, Footer } = Layout;
-const { Text, Title } = Typography;
+const { Text, Title, Link, Paragraph } = Typography;
 
 // site images
+const SectionImg1 = require("./Media/img/Section1.jpg");
+const SectionImg2 = require("./Media/img/Section2.jpg");
+const SectionImg3 = require("./Media/img/Section3.jpg");
 const ContactImg = require("./Media/img/Contact.jpg");
 
 // css exceptions so far: hero img, nav item bg color, nav label/icon color
@@ -74,6 +81,14 @@ interface config {
   };
 }
 
+const projectLinks: string[] = [
+  "https://yipyapapp.com/",
+  "https://www.anthonyjanpotter.com/",
+  "https://github.com/sbronicki/generic-portfolio-components",
+  "https://gifted-nobel-28269f.netlify.app/",
+  "https://gracious-kalam-b1eeae.netlify.app/",
+];
+
 const appConfig: config = {
   nav: {
     items: [
@@ -98,8 +113,6 @@ const appConfig: config = {
         to: "#contact",
       },
     ],
-    label: "Generic Portfolio",
-    // icon: <VideoCameraAddOutlined />,
     color: { background: "", text: "#fff" },
   },
   hero: {
@@ -111,20 +124,102 @@ const appConfig: config = {
         }}
       >
         <span style={{ textAlign: "center" }}>
-          Contact Email: <br /> example@email.com
+          Contact Email: <br /> sbronicki@gmail.com
         </span>
       </Title>
     ),
+    centerCenter: (
+      <Text>
+        <Title
+          level={1}
+          style={{
+            color: "#fff",
+          }}
+        >
+          Stanley Bronicki
+        </Title>
+        <Title
+          style={{
+            color: "#fff",
+          }}
+          level={2}
+        >
+          Fullstack Web Developer
+        </Title>
+      </Text>
+    ),
   },
-  section: [],
+  section: [
+    {
+      navId: "about",
+      title: "About Me",
+      content:
+        "I'm a self-taught fullstack web developer. I graduated from NJIT with a bachelor's degree in physics. I'm currently working as a React developer, though recently I've been branching out into more fullstack and backend roles. I have over two years experience working on a dev team writing production level frontend and backend code, in particular- React, TypeScript, JavaScript (pre and post ES6), jQuery, CSS, C#, SQL and Node/Express. I love working along side other developers and collaborating in order to accomplish our goals and learn from each other. I look forward to continuing the development of my skills as well as all the projects I'll take on in the future. My main goal at this time is to continue working and further increase my effectiveness as a web developer so that I can keep learning about and creating the things I love!",
+    },
+    {
+      navId: "skills",
+      title: "Web Development",
+      content: (
+        <>
+          <Text>
+            Tech I love working with includes HTML, CSS, JavaScript, TypeScript,
+            jQuery and React as well as Node/Express, C#/.NET, SQL and GraphQL.{" "}
+            <Link href="https://github.com/sbronicki">My GitHub Page</Link>
+          </Text>
+          <List
+            style={{ marginTop: "1rem" }}
+            size="small"
+            header="Project Links-"
+            renderItem={(item, i) => (
+              <List.Item>
+                {<Link href={projectLinks[i]}>{item}</Link>}
+              </List.Item>
+            )}
+            dataSource={[
+              "Yip Yapp App",
+              "AnthonyJanPotter.com",
+              "Generic Portfolio Template (used for this site)",
+              "React Trivia Joker",
+              "React Pokédex",
+            ]}
+          />
+        </>
+      ),
+      img: { left: true, img: SectionImg1 },
+    },
+    {
+      navId: "education",
+      title: "Education",
+      content: (
+        <List
+          renderItem={(item) => <List.Item>{item}</List.Item>}
+          dataSource={[
+            "Bachelor of Physics from New Jersey Institue of Technology (NJIT)",
+            "Associate of Physics from Brookdale Community College (BCC)",
+            "Associate of Mathematics (BCC)",
+            "Associate of Social Sciences (BCC)",
+          ]}
+        />
+      ),
+      img: { left: false, img: SectionImg3 },
+    },
+    // {
+    //   title: "Film & Photography",
+    //   content: (
+    //     <List
+    //       renderItem={(item) => <List.Item>{item}</List.Item>}
+    //       dataSource={["Photoshop", "Final Cut Pro"]}
+    //     />
+    //   ),
+    //   img: { left: false, img: SectionImg2 },
+    // },
+  ],
   contact: {
     img: {
       img: ContactImg,
       left: true,
     },
     title: "Contact",
-    // message: "Fill out this form to get in touch!",
-    // changes here need to also be made in index.html for Netlify bots
     fields: [
       { label: "Name" },
       { label: "Email" },
@@ -134,14 +229,23 @@ const appConfig: config = {
     icon: <ContactsOutlined style={{ paddingRight: "7px" }} />,
   },
   footer: {
-    label: "Copyright ©",
     color: {
       background: "#293477",
       text: "#fff",
     },
     items: [
       {
-        to: "https://www.youtube.com",
+        to: "https://github.com/sbronicki",
+        icon: <FontAwesomeIcon style={{ fontSize: "32px" }} icon={faGithub} />,
+      },
+      {
+        to: "https://www.linkedin.com/in/stanley-bronicki/",
+        icon: (
+          <FontAwesomeIcon style={{ fontSize: "32px" }} icon={faLinkedin} />
+        ),
+      },
+      {
+        to: "https://www.youtube.com/nimso9",
         icon: <FontAwesomeIcon style={{ fontSize: "32px" }} icon={faYoutube} />,
       },
     ],
@@ -159,7 +263,10 @@ const App: React.FC = () => {
             color={appConfig.nav.color}
             items={appConfig.nav.items}
           />
-          <Hero rightBottom={appConfig.hero.rightBottom} />
+          <Hero
+            rightBottom={appConfig.hero.rightBottom}
+            centerCenter={appConfig.hero.centerCenter}
+          />
         </Header>
         <Content>
           {appConfig.section?.length
